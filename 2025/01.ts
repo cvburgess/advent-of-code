@@ -1,4 +1,4 @@
-import { rotations } from "./1-input.ts";
+import { rotations } from "./01-input.ts";
 
 // Challenge: https://adventofcode.com/2025/day/1
 
