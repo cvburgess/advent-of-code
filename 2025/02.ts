@@ -4,15 +4,17 @@ import { Range, ranges } from "./02-input.ts";
 
 const sum = (arr: number[]) => arr.reduce((prev, cur) => prev + cur, 0);
 
-const getInvalidIdsForRangePart1 = (range: Range) => {
+const allIdsForRange = (range: Range) => {
   const [start, end] = range;
   const numIds = (end - start) + 1;
 
-  const allIds = Array
+  return Array
     .from({ length: numIds })
     .map((_, index) => index + start);
+};
 
-  return allIds.filter((id) => {
+const getInvalidIdsForRangePart1 = (range: Range) => {
+  return allIdsForRange(range).filter((id) => {
     const numChars = id.toString().length;
 
     const isOddNumberOfChars = numChars % 2 !== 0;
@@ -27,10 +29,6 @@ const getInvalidIdsForRangePart1 = (range: Range) => {
   });
 };
 
-const invalidIdsPart1 = ranges.flatMap(getInvalidIdsForRangePart1);
-
-console.log(sum(invalidIdsPart1));
-
 const splitStringByLength = (str: string, length: number) => {
   const subStrings = [];
 
@@ -42,14 +40,7 @@ const splitStringByLength = (str: string, length: number) => {
 };
 
 const getInvalidIdsForRangePart2 = (range: Range) => {
-  const [start, end] = range;
-  const numIds = (end - start) + 1;
-
-  const allIds = Array
-    .from({ length: numIds })
-    .map((_, index) => index + start);
-
-  return allIds.filter((id) => {
+  return allIdsForRange(range).filter((id) => {
     const idStr = id.toString();
     const numChars = idStr.length;
     let isValid = true;
@@ -70,6 +61,8 @@ const getInvalidIdsForRangePart2 = (range: Range) => {
   });
 };
 
-const invalidIdsPart2 = ranges.flatMap(getInvalidIdsForRangePart2);
+const invalidIdsPart1 = ranges.flatMap(getInvalidIdsForRangePart1);
+console.log(sum(invalidIdsPart1));
 
+const invalidIdsPart2 = ranges.flatMap(getInvalidIdsForRangePart2);
 console.log(sum(invalidIdsPart2));
